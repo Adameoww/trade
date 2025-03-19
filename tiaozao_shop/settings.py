@@ -103,7 +103,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-LANGUAGE_CODE = 'zh-hans'  # 后台管理改为中文
+LANGUAGE_CODE = 'en-us'  # 后台管理改为中文
 
 TIME_ZONE = 'Asia/Shanghai'  # 时区改为上海
 
