@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block script %}
+        <script type="text/javascript">
+            {% if error_info %}
+                xtalert.alertError('{{ error_info }}')
+            {% endif %}
+            {% if info %}
+                 xtalert.alertInfo('{{ info }}')
+            {% endif %}
+            {% if success_info %}
+                 xtalert.alertSuccessToast('{{ success_info }}!');
+            {% endif %}
+        </script>
+ {% endblock %}
+{% block center_body %}
+
+
+	<div class="main_con clearfix">
+		<div class="left_menu_con clearfix">
+            <h3>User Center</h3>
+            <div class="information clearfix">
+                <a href="/user/myself_information/"><img src="{{ MEDIA_URL }}{{ user.ulogo }}" alt="Profile Picture"></a>
+                <div class="information1 clearfix">
+                    {% if user.ucheck_passOrfail == False %}
+                        <a>Not Verified</a>
+                    {% else %}
+                        <a style="color: cyan">Verified</a>
+                    {% endif %}
+                </div>
+            </div>
+			<ul>
+                <li><a href="{% url "df_user:info" %}">· Personal Information</a></li>
+                <li><a href="{% url "df_user:check_user" %}">· Identity Verification</a></li>
+                <li><a href="{% url "df_user:publishers" %}" class="active">· Publish Product</a></li>
+                <li><a href="{% url "df_user:changeInformation" %}">· Edit Profile</a></li>
+                <li><a href="{% url "df_user:changeInPwd" %}">· Change Password</a></li>
+				<li><a href="{% url "df_user:order" 1 %}">· All Orders</a></li>
+				<li><a href="{% url "df_user:site" %}">· Shipping Address</a></li>
+			</ul>
+		</div>
+		<div class="right_content clearfix">
+
+				<h3 class="common_title2">Publish Product</h3>
+				<div class="site_con">
+					<form action="{% url "df_user:publishers" %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+						<div class="form_group">
+							<label>Product Name:</label>
+							<input type="text" name="title">
+						</div>
+                        <div class="form_group">
+                            <label>Product Image:</label>
+                            <input type="file" name="pic">
+                        </div>
+                        <div class="form_group">
+                            <label>Price:</label>
+                            <input type="text" name="price">
+                        </div>
+                        <div class="form_group">
+                            <label>Product Summary:</label>
+                            <input type="text" name="jianjie">
+                        </div>
+                        <div class="form_group">
+                            <label>Stock:</label>
+                            <input type="text" name="kucun">
+                        </div>
+                        <div class="form_group">
+                            <label>Detailed Description:</label>
+                            <input type="text" name="content">
+                        </div>
+                        <div class="form_group">
+                            <label>Product Type:</label>
+                            <select name="type_id">
+                                {% for typeinfo in typeinfos %}
+                                <option value="{{ typeinfo.id }}">{{ typeinfo.ttitle }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+						<input type="submit" name="" value="Publish" class="info_submit">
+					</form>
+				</div>
+		</div>
+	</div>
+
+    {% if messages %}
+    <script>
+        {% for msg in messages %}
+            alert('{{ msg.message }}');
+        {% endfor %}
+    </script>
+    {% endif %}
+
+{% endblock center_body %}

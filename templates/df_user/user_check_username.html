@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block center_body %}
+	<div class="main_con clearfix">
+		<div class="left_menu_con clearfix">
+            <h3>User Center</h3>
+            <div class="information clearfix">
+                <a href="/user/myself_information/"><img src="{{ MEDIA_URL }}{{ user.ulogo }}" alt="Profile Picture"></a>
+                <div class="information1 clearfix">
+                    {% if user.ucheck_passOrfail == False %}
+                        <a>Not Verified</a>
+                    {% else %}
+                        <a style="color: cyan">Verified</a>
+                    {% endif %}
+                </div>
+            </div>
+			<ul>
+                <li><a href="{% url "df_user:info" %}">· Personal Information</a></li>
+                <li><a href="{% url "df_user:check_user" %}" class="active">· Identity Verification</a></li>
+                <li><a href="{% url "df_user:publishers" %}">· Publish Product</a></li>
+                <li><a href="{% url "df_user:changeInformation" %}">· Edit Profile</a></li>
+                <li><a href="{% url "df_user:changeInPwd" %}">· Change Password</a></li>
+				<li><a href="{% url "df_user:order" 1 %}">· All Orders</a></li>
+				<li><a href="{% url "df_user:site" %}">· Shipping Address</a></li>
+			</ul>
+		</div>
+		<div class="right_content clearfix">
+
+				<h3 class="common_title2">User Identity Verification</h3>
+				<div class="site_con">
+					<form action="{% url "df_user:check_user" %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+						<div class="form_group">
+							<label>Full Name:</label>
+							<input type="text" name="name" class="user_info_check">
+						</div>
+                        <div class="form_group">
+                            <label>Document Type:</label>
+                            <select name="type_id" class="user_info_check">
+                              <option value="大陆身份证">Mainland ID Card</option>
+                              <option value="港澳台身份证">Hong Kong, Macau, and Taiwan ID Card</option>
+                              <option value="护照">Passport</option>
+                            </select>
+                        </div>
+                        <div class="form_group">
+							<label>Document Number:</label>
+							<input type="text" name="tel" class="user_info_check">
+						</div>
+                        <div class="form_group">
+                            <label>Upload Document Image:</label>
+                            <input type="file" name="pic" class="user_info_check">
+                        </div>
+						<input type="submit" name="" value="Submit" class="info_submit">
+					</form>
+				</div>
+		</div>
+	</div>
+
+    {% if messages %}
+    <script>
+        {% for msg in messages %}
+            alert('{{ msg.message }}');
+        {% endfor %}
+    </script>
+    {% endif %}
+{% endblock center_body %}

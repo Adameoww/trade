@@ -1,0 +1,26 @@
+/* Set the default margin and padding of tags to 0 */
+body,ul,ol,p,h1,h2,h3,h4,h5,h6,dl,dd,select,input,textarea,form{margin:0;padding:0}
+
+/* Make the font size of h tags inherit from the body */
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}
+
+/* Remove the default list icons */
+ul,ol{list-style:none;}
+
+/* Remove the default italic style of em */
+em{font-style: normal;}
+
+/* Remove the default underline of anchor tags */
+a{text-decoration:none;}
+
+/* Remove the border when linking images */
+img{border:0;}
+
+/* Clear float */
+.clearfix:before,.clearfix:after{content:"";display:table}
+.clearfix:after{clear:both;}
+.clearfix{zoom:1}
+
+/* Float */
+.fl{float:left}
+.fr{float:right}

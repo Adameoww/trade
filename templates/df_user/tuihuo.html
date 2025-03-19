@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <script>
+    $(function () {
+        $('.col07').each(function () {
+            count = $(this).prev().text();
+            price = $(this).prev().prev().text();
+            $(this).html(parseFloat(count,2)*parseFloat(price,2)+'GBP')
+        })
+    })
+    </script>
+
+{% endblock %}
+
+{% block center_body %}
+	<h3 class="common_title">Fill in the Information</h3>
+
+	<div class="common_list_con clearfix">
+		<div class="site_con">
+					<form action="{% url "df_user:tuihuo" %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form_group">
+							<label>Product Name:</label>
+							<input type="text" name="title">
+						</div>
+                        <div class="form_group">
+							<label>Recipient Name:</label>
+							<input type="text" name="username">
+						</div>
+                        <div class="form_group">
+							<label>Sender Name:</label>
+							<input type="text" name="username1">
+						</div>
+                        <div class="form_group">
+							<label>ID Number:</label>
+							<input type="text" name="person_number">
+						</div>
+                        <div class="form_group">
+							<label>Order Number:</label>
+							<input type="text" name="order_number">
+						</div>
+                        <div class="form_group">
+                            <label>Courier Type:</label>
+                            <select name="kuaidi">
+                                <option value="Zhongtong">Zhongtong</option>
+                                <option value="Yuantong">Yuantong</option>
+                                <option value="Shentong">Shentong</option>
+                                <option value="Yunda">Yunda</option>
+                                <option value="Tiantian">Tiantian</option>
+                                <option value="EMS">EMS</option>
+                                <option value="Shunfeng">Shunfeng</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form_group">
+                            <label>Tracking Number:</label>
+                            <input type="text" name="kuaidi_number">
+                        </div>
+                        <div class="form_group">
+                            <label>Shipping Address:</label>
+                            <input type="text" name="address">
+                        </div>
+                        <div class="form_group">
+                            <label>Return Address:</label>
+                            <input type="text" name="address1">
+                        </div>
+                        <div class="form_group form_group2">
+                            <label>Reason for Return:</label>
+                            <textarea class="site_area" name="text" ></textarea>
+                        </div>
+						<input type="submit" name="" value="Submit" class="info_submit">
+					</form>
+				</div>
+
+	</div>
+    {% if messages %}
+    <script>
+        {% for msg in messages %}
+            alert('{{ msg.message }}');
+        {% endfor %}
+    </script>
+    {% endif %}
+{% endblock center_body %}
+
